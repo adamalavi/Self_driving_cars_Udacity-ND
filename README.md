@@ -1,5 +1,5 @@
 # Self_driving_cars_Udacity-ND
-Udacity's 6 month nano degree that teaches a variety of concepts in different fields like Artificial intelligence, computer vision, deep learning, path planning, sensor fusion, behavior modelling, prediction and system integration. This repository contains all the nanodegree projects from all these different fields.
+[Udacity's self driving cars nano degree](https://www.udacity.com/course/self-driving-car-engineer-nanodegree--nd013) that teaches a variety of concepts in different fields like Artificial intelligence, computer vision, deep learning, path planning, sensor fusion, behavior modelling, prediction and system integration. This repository contains all the nanodegree projects from all these different fields.
 
 ## Project 1 - Lane finding
 Detecting lane lines using the basic concepts of computer vision like masking, thresholding, color conversions, Hough lines, etc.
