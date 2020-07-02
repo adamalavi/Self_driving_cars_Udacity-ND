@@ -1,5 +1,7 @@
 # Advanced Lane Finding
 ## Overview
+![image](https://github.com/adamalavi/Self_driving_cars_Udacity-ND/blob/master/P2%20-%20Advanced%20lane%20finding/project-output.gif)
+
 The goals / steps of this project are the following:
 
 * Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
