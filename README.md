@@ -6,7 +6,7 @@ Detecting lane lines using the basic concepts of computer vision like masking, t
 ## Project 2 - Advanced lane finding
 Create a pipeline for advanced lane lines  and radius of curvature detection using concepts like camera calibration, distortion correction, color transforms, gradients, perspective transform, etc. The radius of curvature is obtained by using an algorithm called sliding window search.
 ## Project 3 - Traffic sign classification using LeNet
-German traffic signs dataset was used to build a classifier with around 96% accuracy using the [LeNet architecture](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf) and other deep learning concepts using Tensorflow.
+German traffic signs dataset was used to build a classifier with around 95% accuracy using a modified version of the [LeNet architecture](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf) and other deep learning concepts using Tensorflow.
 ## Project 4 - Behavioral cloning
 A deep convolutional neural network was trained using Keras framework to mimic the driving behavior of humans. The dataset was created with around 25000 images captured from 3 cameras on the vehicle and labelled with the steering angle at that point of time. The architecture used was the one presented by Nvidia in their paper on [end to end learning for self driving cars](https://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf).
 ## Project 5 - Extended Kalman filter
