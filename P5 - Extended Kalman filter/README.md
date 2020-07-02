@@ -2,7 +2,7 @@
 ## Overview
 ![image](https://github.com/adamalavi/Self_driving_cars_Udacity-ND/blob/master/P5%20-%20Extended%20Kalman%20filter/Recordings/EKF-closeup.gif)
 
-This code implements the extended Kalman filter in C++ where simulated lidar and radar measurements were provided. The red dots are used to indicate lidar measurements and the blue dots indicate radar measurements. A Kalman filter, lidar measurements and radar measurements were used to perform **sensor fusion** abd track the vehicle's position which is denoted by green dots on the track.
+This code implements the extended Kalman filter in C++ where simulated lidar and radar measurements were provided. The red dots are used to indicate lidar measurements and the blue dots indicate radar measurements. A Kalman filter, lidar measurements and radar measurements were used to perform **sensor fusion** abd track the vehicle's position which is denoted by green dots on the track. The vehicle's position and velocity in the x and y direction is obtained as a result of sensor fusion and the root mean squaared error of this value is printed on the simulator.
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases). The uWebSocketIO can be dowloaded [here](https://github.com/uWebSockets/uWebSockets).
 ## Other Important Dependencies
 
