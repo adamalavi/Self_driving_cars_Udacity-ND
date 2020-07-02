@@ -1,6 +1,6 @@
 # Finding Lane Lines on the Road 
+
 ## Overview
----
 ![image](https://github.com/adamalavi/Self_driving_cars_Udacity-ND/blob/master/P1%20-%20Lane%20finding/solidWhiteRight.gif)
 
 Being the first project, this was a fairly simple project where lane lines were detected using basic concepts of OpenCV in Python. The lines were detected using the Hough lines function and other color transform and masking functions.
