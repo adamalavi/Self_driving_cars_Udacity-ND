@@ -1,20 +1,5 @@
-## Advanced Lane Finding
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-
-
-In this project, your goal is to write a software pipeline to identify the lane boundaries in a video, but the main output or product we want you to create is a detailed writeup of the project.  Check out the [writeup template](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup.  
-
-Creating a great writeup:
----
-A great writeup should include the rubric points as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
-
-The Project
----
-
+# Advanced Lane Finding
+## Overview
 The goals / steps of this project are the following:
 
 * Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
@@ -26,14 +11,41 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-The images for camera calibration are stored in the folder called `camera_cal`.  The images in `test_images` are for testing your pipeline on single frames.  If you want to extract more test images from the videos, you can simply use an image writing method like `cv2.imwrite()`, i.e., you can read the video in frame by frame as usual, and for frames you want to save for later you can write to an image file.  
+## Working
+#### 1. Camera Calibration
+---
 
-To help the reviewer examine your work, please save examples of the output from each stage of your pipeline in the folder called `output_images`, and include a description in your writeup for the project of what each image shows.    The video called `project_video.mp4` is the video your pipeline should work well on.  
+Camera calibration is performed on the images of a chessboard of size 9x6. Multiple images of the board from different angles are provided. For all these images, we first try to find the corners and if found, these coordinates are appended to the list of image points. Then the object and image points are used to get the camera matrix and the distortion coefficients. These are then used to undistort the images. Examples are available in the notebook.
 
-The `challenge_video.mp4` video is an extra (and optional) challenge for you if you want to test your pipeline under somewhat trickier conditions.  The `harder_challenge.mp4` video is another optional challenge and is brutal!
+---
+#### 2. Perspective transform
+---
 
-If you're feeling ambitious (again, totally optional though), don't stop there!  We encourage you to go out and take video of your own, calibrate your camera and show us how you would implement this project from scratch!
+The source points are obtained manually by eye balling and then recheking by drawing the points on a test image. The destination points are then decided in such a way that the two lanes are parallel in the output image.
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+---
+#### 3. Thresholding
+---
+
+Sobel function is used to find different gradients and then a combined condition is used to find the output for the gradients. Then a threshold is applied on the saturation and lightness channel which is then pooled with the gradient output which leads to pretty satisfactory results.
+
+---
+#### 4. Fitting a polynomial
+---
+
+After finding the thresholded frame in a video the polynomial coefficients to fit the lane line can be found out using two methods, namely, sliding window search or search from prior. If the lines were obtained in the previous frame then the search from prior method is used to detect the lines in the new frame. If satisfactory results are not obtained for this frame, then the brute search that is the sliding window search is performed. The points then obtained are used to fit a polynomial using the polyfit function.
+
+---
+#### 5. Radius of curvature
+---
+
+Once the pixels corresponding to the lanelines have been obtained, they are used in the polyfit function together with the conversion factor for conversion from pixel to meters and the radius of curvature is determined from a formula. The radius of curvature is averaged over the last 10 iterations to avoid jerks in the reading. Also, the offset is calculated as the difference between the center of the two lane lines at the bottom of the image and the image center.
+
+---
+#### 6. Drawing the lane line
+---
+
+The coordinates obtained on the bird's eye view image are then converted back to the real space using the inversion matrix after the lane is drawn from the polynomial coefficients obtained in the previous step.
+
+---
 
