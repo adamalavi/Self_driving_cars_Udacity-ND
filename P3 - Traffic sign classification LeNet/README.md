@@ -2,8 +2,7 @@
 Overview
 ---
 In this project, concepts of deep neural network and convolutional neural network was used to train and validate a model so it can classify traffic sign images using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). After the model is trained, a few images of German traffic signs were downloaded from the web that were not a part of the dataset and then tested. A modified version of the [Lenet architecture](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf) was used to achieve an accuracy of approximately 95%.
-
-![image_lenet](https://github.com/adamalavi/Self_driving_cars_Udacity-ND/blob/master/P3%20-%20Traffic%20sign%20classification%20LeNet/lenet.jpg)
+![image_viscnn](https://github.com/adamalavi/Self_driving_cars_Udacity-ND/blob/master/P3%20-%20Traffic%20sign%20classification%20LeNet/visualize_cnn.png)
 
 The goals / steps of this project are the following:
 * Load the data set
@@ -24,7 +23,10 @@ This was the first step of the project and the size of the train, test and valid
 For pre-processing the images, the pixel values were normalized to a value between -1 to 1. This was done so that convergence was achieved sooner. The images were not converted to grayscale because I believe the red and the blue colour in the images could have been benificial in the classification process. The data was then shuffled.
 
 ##### 2. Model Architecture
-My final model consisted of the following layers:
+
+![image_lenet](https://github.com/adamalavi/Self_driving_cars_Udacity-ND/blob/master/P3%20-%20Traffic%20sign%20classification%20LeNet/lenet.jpg)
+
+A modified version of this Lenet architecture was used and the changes can be noticed in the table given below. My final model consisted of the following layers:
 
 | Layer         		|     Description	        					| 
 |:---------------------:|:---------------------------------------------:| 
@@ -66,6 +68,3 @@ Here are the results of the prediction:
 The model correctly classified 5 out of 6 pictures getting an accuracy of 83%.
 The softmax values for the predictions were observed and all the values were 1.00 except for the one image that was misclassified which had a probability of 0.75.
 The model seems to be compatible with changing contrasts, saturation, etc. One image was misclassified and that was probably because of the different angle the image was captured from. To account for this, maybe a little augmentation can be performed on the training data at the beginning.
-
-### CNN visualisation
-![image_viscnn](https://github.com/adamalavi/Self_driving_cars_Udacity-ND/blob/master/P3%20-%20Traffic%20sign%20classification%20LeNet/visualize_cnn.png)
