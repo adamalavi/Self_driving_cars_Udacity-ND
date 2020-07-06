@@ -1,30 +1,9 @@
 ## Project: Build a Traffic Sign Recognition Program
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
-
 Overview
 ---
-In this project, you will use what you've learned about deep neural networks and convolutional neural networks to classify traffic signs. You will train and validate a model so it can classify traffic sign images using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). After the model is trained, you will then try out your model on images of German traffic signs that you find on the web.
+In this project, concepts of deep neural network and convolutional neural network was used to train and validate a model so it can classify traffic sign images using the [German Traffic Sign Dataset](http://benchmark.ini.rub.de/?section=gtsrb&subsection=dataset). After the model is trained, a few images of German traffic signs were downloaded from the web that were not a part of the dataset and then tested. A modified version of the [Lenet architecture](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf) was used to achieve an accuracy of approximately 95%.
+![image_viscnn](https://github.com/adamalavi/Self_driving_cars_Udacity-ND/blob/master/P3%20-%20Traffic%20sign%20classification%20LeNet/visualize_cnn.png)
 
-We have included an Ipython notebook that contains further instructions 
-and starter code. Be sure to download the [Ipython notebook](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb). 
-
-We also want you to create a detailed writeup of the project. Check out the [writeup template](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup. The writeup can be either a markdown file or a pdf document.
-
-To meet specifications, the project will require submitting three files: 
-* the Ipython notebook with the code
-* the code exported as an html file
-* a writeup report either as a markdown or pdf file 
-
-Creating a Great Writeup
----
-A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/481/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used in each step (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
-
-The Project
----
 The goals / steps of this project are the following:
 * Load the data set
 * Explore, summarize and visualize the data set
@@ -33,26 +12,59 @@ The goals / steps of this project are the following:
 * Analyze the softmax probabilities of the new images
 * Summarize the results with a written report
 
-### Dependencies
-This lab requires:
 
-* [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit)
+## Working
 
-The lab environment can be created with CarND Term1 Starter Kit. Click [here](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) for the details.
+### Data Set Summary & Exploration
+This was the first step of the project and the size of the train, test and validation data was explored. Also a few random images were plotted in the notebook and their label was printed as the title.
 
-### Dataset and Repository
+### Design and Test a Model Architecture
+##### 1. Preprocessing
+For pre-processing the images, the pixel values were normalized to a value between -1 to 1. This was done so that convergence was achieved sooner. The images were not converted to grayscale because I believe the red and the blue colour in the images could have been benificial in the classification process. The data was then shuffled.
 
-1. Download the data set. The classroom has a link to the data set in the "Project Instructions" content. This is a pickled dataset in which we've already resized the images to 32x32. It contains a training, validation and test set.
-2. Clone the project, which contains the Ipython notebook and the writeup template.
-```sh
-git clone https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project
-cd CarND-Traffic-Sign-Classifier-Project
-jupyter notebook Traffic_Sign_Classifier.ipynb
-```
+##### 2. Model Architecture
 
-### Requirements for Submission
-Follow the instructions in the `Traffic_Sign_Classifier.ipynb` notebook and write the project report using the writeup template as a guide, `writeup_template.md`. Submit the project code and writeup document.
+![image_lenet](https://github.com/adamalavi/Self_driving_cars_Udacity-ND/blob/master/P3%20-%20Traffic%20sign%20classification%20LeNet/lenet.jpg)
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+A modified version of this Lenet architecture was used and the changes can be noticed in the table given below. My final model consisted of the following layers:
 
+| Layer         		|     Description	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Input         		| 32x32x3 RGB image   							| 
+| Convolution 5x5     	| 1x1 stride, valid padding, outputs 28x28x6 	|
+| RELU					|												|
+| Max pooling 2x2		| 2x2 stride,  outputs 14x14x6 				|
+| Convolution 5x5	    | 1x1 stride, valid padding, outputs 10x10x16	|
+| Activation            |												|   
+| Convolution 5x5		| 1x1 stride, valid padding, outputs 1x1x400	|
+| RELU					|												|
+| Concatenation			| flattened pooling 1 and conv3, outputs 800	|
+| Dropout				|												|
+| Fully connected		|Input: 800, outputs 43							|
+|						|												|
+
+##### 3. Training
+For training the logits were applied to the softmax function and cross entropy was used to calculate the cost. This cost was then minimised using the Adam optimiser. Epoch value was set to 100, learning rate 0.001 and batch size was chosen as 300.
+
+##### 4. Approach
+The LeNet approach discussed in the lab was first tried but even after tuning the hyperparameters, it failed to provide a validation accuracy above 93%. Then the architecture was slightly modified so that the flattened output of the layer1 and the last convolutional layer both of size 800 were concatenated to incorporate some geometric features that mighthave been detected in the first layerin the final fully connected layer as well. This layer of size 800 was then reduced to 43 to obtain the final results.
+
+My final model results were:
+* validation set accuracy of 95.4 
+* test set accuracy of 94.5
+
+### Test a Model on New Images
+Here are the results of the prediction:
+
+| Image			        |     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| Right of way			| Right of way 									| 
+| General caution		| General caution								|
+| Left turn				| Beware of ice									|
+| 60 km/h	      		| 60 km/hr						 				|
+| 30 km/h	      		| 30 km/hr						 				|
+| Keep Right			| Keep right      								|
+
+The model correctly classified 5 out of 6 pictures getting an accuracy of 83%.
+The softmax values for the predictions were observed and all the values were 1.00 except for the one image that was misclassified which had a probability of 0.75.
+The model seems to be compatible with changing contrasts, saturation, etc. One image was misclassified and that was probably because of the different angle the image was captured from. To account for this, maybe a little augmentation can be performed on the training data at the beginning.
